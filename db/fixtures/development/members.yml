@@ -1,0 +1,22 @@
+# 開発環境のためのフィクスチャ: members
+<% fnames = ['ほげ田', 'ふが田', 'ぴよ田', 'ほげ中', 'ふが中', 'ぴよ中', 'ほげ本']
+   gnames = ['ふが吉', 'ぴよ郎', 'ほげ子']
+   ffuriganas = ['ほげた', 'ふがた', 'ぴよた', 'ほげなか',
+                 'ふがなか', 'ぴよなか', 'ほげもと' ]
+   gfuriganas = ['ふがきち', 'ぴよろう', 'ほげこ' ] %>
+<% 1.upto(10) do |idx| %>
+member<%= idx %>:
+  id: <%= idx %>
+  member_num: <%= idx + 10 %>
+  family_name: <%= fnames[(idx - 1) % 7] %>
+  given_name: <%= gnames[(idx - 1) % 3] %>
+  furigana: <%= ffuriganas[(idx - 1) % 7] + ' ' + gfuriganas[(idx - 1) % 3] %>
+  email: <%= sprintf("hoge%02d@xxx.xx.jp", idx) %>
+  phone: 00-0000-0000
+  created_at: 2009-06-30 15:00:00
+  updated_at: 2009-06-30 15:00:00
+  login_name: member<%= idx %>
+  hashed_password: <%= Member.hashed_password('', 12345678) %>
+  salt: 12345678
+  administrator: <%= idx == 1 ? 'true' : 'false' %>
+<% end %>

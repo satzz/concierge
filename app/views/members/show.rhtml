@@ -1,0 +1,62 @@
+<% @side_bar_template_name = 'side_bar' -%>
+
+<% if @current_user %>
+
+<h3>
+  <%= @member.full_name %>さんの情報
+</h3>
+
+<div style="position:absolute; top:100px; left:10px; background-color:lightgray;">
+<% if @current_user.id == @member.id %>
+<form action="/members/update">
+  <input type=hidden name="id" value='<%= @member.id %>'>
+  <table>
+    <tbody>
+      <tr>
+        <td>姓</td>
+        <td><input type=text name="family_name" value='<%= @member.family_name %>'></td>
+      </tr>
+      <tr>
+        <td>名</td>
+        <td><input type=text name="given_name" value='<%= @member.given_name %>'></td>
+      </tr>
+      <tr>
+        <td>email</td>
+        <td><input type=text name="email" value='<%= @member.email %>'></td>
+      </tr>
+      <tr>
+        <td>phone</td>
+        <td><input type=text name="phone" value='<%= @member.phone %>'></td>
+      </tr>
+    </tbody>
+  </table>
+  <input type="submit" value="変更">
+</form>
+<% else %>
+<table>
+  <tbody>
+    <tr>
+      <td>姓</td>
+      <td><%= @member.family_name %></td>
+    </tr>
+    <tr>
+      <td>名</td>
+      <td><%= @member.given_name %></td>
+    </tr>
+    <tr>
+      <td>email</td>
+      <td><%= @member.email %></td>
+    </tr>
+    <tr>
+      <td>phone</td>
+      <td><%= @member.phone %></td>
+    </tr>
+  </tbody>
+</table>
+
+<% end %>
+
+<%= link_to '担当タスク', :controller => 'tasks', :action => 'index', :owner_id => @member.id %>:<%= @member.tasks.length %>
+
+<% end %>
+

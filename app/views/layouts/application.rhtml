@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title><% if @page_title -%><%= h(@page_title) -%> -- <% end -%>Title</title>
+<style>
+  div.task {
+  width:90px;
+  position:absolute;
+  text-align:center;
+  }
+  tr {
+  background-color:lightblue;
+  }
+  tr.new {
+  background-color:lightgreen;
+  }
+  th {
+  background-color:#778899;
+  }
+</style>
+
+</head>
+<body>
+<div id="container">
+  <div id="header">
+    <table width="100%">
+      <tr>
+        <td></td>
+        <td>
+          <%= link_to 'タスク一覧', :controller => 'tasks', :action => 'index' %>
+        </td>
+        <td>
+          <%= link_to 'メンバー一覧', :controller => 'members', :action => 'index' %>
+        </td>
+        <td id="account">
+          <%= render :partial => 'shared/account' %>
+        </td>
+      </tr>
+    </table>
+
+  <% if @recent_changes -%>
+  <div style="font-size:10px; background-color:lightgray; width:320px;color:#cc0000">
+    <h3>new!</h3>
+    <ul>
+    <% @recent_changes.each do |r| -%>
+    <li><%= r -%></li>
+    <% end -%>
+    </ul>
+  </div>
+  <% end -%>
+  
+  <% if @message %>
+  <div style="position:absolute; top:50px; left:350px;background-color:#cc0000;">
+    <%= @message %>
+  </div>
+  <% end -%>
+
+  </div>
+  
+  <div id="left">
+    <%= yield :layout %>
+  </div>
+  <% if @side_bar_template_name -%>
+  <div id="right">
+    <%= render :partial => @side_bar_template_name %>
+  </div>
+  <% end -%>
+  
+  <div id="footer">
+<!--     Powered by <%= link_to 'Ruby on Rails 1.2', "http://www.rubyonrails.com/" %> -->
+  </div>
+</div>
+</body>
+</html>

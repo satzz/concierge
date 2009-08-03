@@ -1,0 +1,68 @@
+
+<form action="/tasks/update">
+  <input type=hidden name="id" value='<%= @task.id %>'>
+  <table>
+    <tbody>
+      <tr>
+        <td>件名</td>
+        <td><input type=text name='title' value='<%= @task.title %>'></td>
+      </tr>
+      <tr>
+        <td>内容</td>
+        <td><input type=text name='content' value='<%= @task.content %>'></td>
+      </tr>
+      <tr>
+        <td>登録者</td>
+        <td>
+          <select name="assigner_id">
+            <% @members.each do |member| %>
+            <option  value='<%= member.id %>' <% if @task.assigner_id == member.id %>selected<% end %>>
+              <%= member.full_name %>
+            </option>
+            <% end %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>担当者</td>
+        <td>
+          <select name="owner_id">
+            <% @members.each do |member| %>
+            <option  value='<%= member.id %>' <% if @task.owner_id == member.id %>selected<% end %>>
+              <%= member.full_name %>
+            </option>
+            <% end %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>状態</td>
+        <td>
+          <select name="status">
+            <% @statuses.each do |status| %>
+            <option  value='<%= status %>' <% if @task.status == status %>selected<% end %>>
+              <%= status %>
+            </option>
+            <% end %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>優先度</td>
+        <td>
+          <select name="priority">
+            <% @priorities.each do |priority| %>
+            <option  value='<%= priority %>' <% if @task.priority == priority %>selected<% end %>>
+              <%= priority %>
+            </option>
+            <% end %>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <input type="submit" value="変更">
+</form>
+<form action="/tasks/destroy/<%= @task.id %>">
+  <input type="submit" value="このタスクを削除">
+</form>

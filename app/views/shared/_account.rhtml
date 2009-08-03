@@ -1,0 +1,10 @@
+<% if @current_user -%>
+  <% unless params[:controller] == 'account' -%>
+    <%= link_to @current_user.full_name + 'さんのアカウント',
+          :controller => 'members', :action => 'show', :id => @current_user.id %> |
+  <% end -%>
+  <%= link_to 'ログアウト',
+        { :controller => '/login', :action => 'logout' },
+        { :method => 'post',
+          :confirm => '本当にログアウトしますか？' } -%>
+<% end -%>

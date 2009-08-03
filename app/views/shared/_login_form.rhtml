@@ -1,0 +1,25 @@
+<% unless @current_user -%>
+<div id="login_form">
+<h2>メンバー専用ページ</h2>
+  <% form_tag '/login/login', :method => 'post' do %>
+    <%= hidden_field_tag 'from', request.request_uri %>
+<table border="0">
+  <tr><td align="right">ユーザー名:</td>
+      <td><%= text_field_tag 'login_name', flash[:login_name],
+                :size => 16 %></td></tr>
+  <tr><td align="right">パスワード:</td>
+      <td><%= password_field_tag 'password', '',
+                :size => 16 %></td></tr>
+  <tr><td colspan="2" align="center">
+        <%= submit_tag 'ログイン' %>
+      </td></tr>
+</table>
+  <% end %>
+</div>
+<% end -%>
+
+<% if flash[:warning] -%>
+<div id="warning">
+  <%= flash[:warning] %>
+</div>
+<% end -%>

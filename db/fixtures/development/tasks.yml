@@ -1,0 +1,15 @@
+<% statuses = ['new', 'open', 'closed', 'invalid', 'suspended'] %>
+
+<% 1.upto(30) do |idx| %>
+task<%= idx %>:
+  id: <%= idx %>
+  title: タスク<%= idx %>
+  content: 内容<%= idx %>
+  owner_id: <%= 1+rand(10) %>
+  assigner_id: <%= 1+rand(10) %>
+  deadline: 2009-<%= 1+rand(12) %>-<%= 1+rand(28) %> %>
+  status: <%= statuses[rand(5)] %>
+  priority: <%= 1+rand(3) %>
+  created_at: 2009-06-30 15:00:00
+  updated_at: 2009-06-30 15:00:00
+<% end %>

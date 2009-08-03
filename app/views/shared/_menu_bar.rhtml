@@ -1,0 +1,27 @@
+<% menu_items = [
+  { :link => { :controller => '/main', :action => 'index' },
+    :name => 'TOP' },
+  { :link => { :controller => '/main', :action => 'activities' },
+    :name => '私たちの活動' },
+  { :link => { :controller => '/main', :action => 'news'},
+    :name => 'ニュース' },
+  { :link => { :controller => '/blog_entries', :action => 'index' },
+    :name => 'ブログ' }
+  ]
+  if @current_user
+    menu_items << { :link => { :controller => '/members',
+                               :action => 'index',
+                               :sort => nil, :group_id => nil },
+                    :name => '会員名簿' }
+  end
+  if @current_user and @current_user.administrator?
+    menu_items << { :link => { :controller => '/admin/main',
+                               :action => 'index' },
+                    :name => '管理ページ' }
+  end -%>
+<div id='menu_bar'>
+<% menu_items.each_with_index do |item, index| -%>
+  <% if index > 0 %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<% end -%>
+  <%= menu_link_to item -%>
+<% end -%>
+</div>

@@ -1,0 +1,154 @@
+
+
+<% @side_bar_template_name = 'side_bar' -%>
+
+<% if @current_user %>
+
+<div style="position:absolute; top:150px; left:700px; background-color:lightgray;">
+  <div style="position:absolute; top:0px; left:-100px; font-size:20px; width:80px">重要度<br>【高】</div>
+  <div style="position:absolute; top:400px; left:-100px; font-size:20px; width:80px">重要度<br>【低】</div>
+  <div style="position:absolute; top:200px; left:480px; font-size:20px; width:80px">緊急度<br>【低】</div>
+  <div style="position:absolute; top:200px; left:-700px; font-size:20px; width:80px">緊急度<br>【高】</div>
+  <%= @div_str %>
+</div>
+
+<div style="position:absolute; top:650px; left:0px;">
+<table width=1200 align=center>
+  <form action="/">
+    <tr>
+      <td>
+      </td>
+      <td align=center>
+        <input type="text" name="title">
+      </td>
+      <td align=center>
+        <input type="text" name="content">
+      </td>
+      <td align=center>
+        <select name="owner_id">
+          <option value="all">all</option>
+          <% @members.each do |member| -%>
+          <option value="<%= member.id -%>" <% if member.id == @current_user.id %>selected<% end %>><%= member.full_name -%></option>
+          <% end -%>
+        </select>
+      </td>
+      <td align=center>
+        <select name="assigner_id">
+          <option value="all">all</option>
+          <% @members.each do |member| -%>
+          <option value="<%= member.id -%>" <% if member.id == @current_user.id %>selected<% end %>><%= member.full_name -%></option>
+          <% end -%>
+        </select>
+      </td>
+      <td>
+      </td>
+      <td align=center>
+        <select name="status">
+          <option value="all">all</option>
+          <option value="new" selected>new</option>
+          <option value="open">open</option>
+          <option value="closed">closed</option>
+          <option value="suspended">suspended</option>
+          <option value="invalid">invalid</option>
+        </select>
+      </td>
+      <td align=center>
+        <select name="priority">
+          <option value="all">all</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+        </select>
+      </td>
+      <td>
+        <input type="submit" value="検索"><br>
+        <input type="submit" value="追加" name="add">
+      </td>
+    </tr>
+  </form>
+
+  <tr>
+  </tr>
+
+  <tr>
+    <th width=70>
+      <%= link_to('↓', :sort => 'id', :order => 'desc') %>
+      #
+      <%= link_to('↑', :sort => 'id', :order => 'asc') %>
+    </th>
+    <th width=200>
+      <%= link_to('↓', :sort => 'title', :order => 'desc') %>
+      件名
+      <%= link_to('↑', :sort => 'title', :order => 'asc') %>
+    </th>
+    <th width=300>
+      <%= link_to('↓', :sort => 'content', :order => 'desc') %>
+      内容
+      <%= link_to('↑', :sort => 'content', :order => 'asc') %>
+    </th>
+    <th width=100>
+      <%= link_to('↓', :sort => 'owner_id', :order => 'desc') %>
+      担当者
+      <%= link_to('↑', :sort => 'owner_id', :order => 'asc') %>
+    </th>
+    <th width=100>
+      <%= link_to('↓', :sort => 'assigner_id', :order => 'desc') %>
+      登録者
+      <%= link_to('↓', :sort => 'assigner_id', :order => 'asc') %>
+    </th>
+    <th>
+      <%= link_to('↓', :sort => 'deadline', :order => 'desc') %>
+      期限
+      <%= link_to('↑', :sort => 'deadline', :order => 'asc') %>
+    </th>
+    <th>
+      <%= link_to('↓', :sort => 'status', :order => 'desc') %>
+      状態
+      <%= link_to('↑', :sort => 'status', :order => 'asc') %>
+    </th>
+    <th width=100>
+      <%= link_to('↓', :sort => 'priority', :order => 'desc') %>
+      優先度
+      <%= link_to('↑', :sort => 'priority', :order => 'asc') %>
+    </th>
+    
+  </tr>
+
+  <% @tasks.each do |task| -%>
+  <tr style="background-color:#<%= task.color %>;">
+    <td align=center>
+      <%= link_to(task.id, :action => 'show', :id => task.id) %>
+    </td>
+    <td>
+      <%= link_to(task.title, :action => 'show', :id => task.id) %>
+    </td>
+    <td>
+      <%= link_to(task.content, :action => 'show', :id => task.id) %>
+    </td>
+    <td align=center>
+      <%= link_to(task.owner.full_name, :controller => 'members', :action => 'show', :id => task.owner.id) %>
+    </td>
+    <td align=center>
+      <%= link_to(task.assigner.full_name, :controller => 'members', :action => 'show', :id => task.assigner.id) %>
+    </td>
+    <td align=center>
+      <%= task.deadline -%>
+    </td>
+    <td align=center>
+      <%= link_to(task.status, :status => task.status) %>
+    </td>
+    <td align=center>
+      <%= link_to(task.priority, :priority => task.priority) %>
+    </td>
+  </tr>
+  <% end -%>
+</table>      
+
+
+</div>
+
+
+
+
+<% end %>
+      

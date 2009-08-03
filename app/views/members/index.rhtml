@@ -1,0 +1,73 @@
+<style>
+  tr {
+  background-color:lightblue;
+  }
+  tr.new {
+  background-color:lightgreen;
+  }
+  th {
+  background-color:#778899;
+  }
+</style>
+
+<% @side_bar_template_name = 'side_bar' -%>
+
+<% if @current_user %>
+
+<h3>
+  メンバー一覧
+</h3>
+
+<table width=1000 align=center>
+  <tr>
+    <th>
+      <%= link_to('↓', :sort => 'member_num', :order => 'desc') %>
+      #
+      <%= link_to('↑', :sort => 'member_num', :order => 'asc') %>
+    </th>
+    <th width=100>
+      <%= link_to('↓', :sort => 'login_name', :order => 'desc') %>
+      ログイン名
+      <%= link_to('↓', :sort => 'login_name', :order => 'asc') %>
+    </th>
+    <th width=200>
+      <%= link_to('↓', :sort => 'name', :order => 'desc') %>
+      名前
+      <%= link_to('↑', :sort => 'name', :order => 'asc') %>
+    </th>
+    <th width=300>
+      メール
+    </th>
+    <th width=100>
+      電話
+    </th>
+    <th>
+      担当タスク数
+    </th>
+  </tr>
+
+  <% @members.each do |member| -%>
+  <tr>
+    <td align=center>
+      <%= link_to(member.member_num, :action => 'show', :id => member.id) %>
+    </td>
+    <td>
+      <%= link_to(member.login_name, :action => 'show', :id => member.id) %>
+    </td>
+    <td>
+      <%= link_to(member.full_name, :action => 'show', :id => member.id) %>
+    </td>
+    <td>
+      <a href="mailto:<%= member.email %>"><%= member.email %></a>
+    </td>
+    <td>
+      <%= member.phone %>
+    </td>
+    <td>
+      <%= member.tasks.length %>
+    </td>
+  </tr>
+  <% end -%>
+</table>      
+<% end %>
+
